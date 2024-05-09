@@ -13,38 +13,50 @@ import java.security.GeneralSecurityException;
 import java.security.Security;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
 
 public class App
 {
     public static void main(String[] args) {
         try {
             Security.addProvider(new BouncyCastleProvider());
-            String input = readFromFile("10mb.txt");
+            String input = readFromFile("100mb.txt");
 
-            //testBCAes100Times("ECB", AesKeySize.AES_128, input);
-            // testBCAes100Times("ECB", AesKeySize.AES_192, input);
+            //testBCAes100Times("ECB", AesKeySize.AES_128, input, false);
+            System.out.println("5------------------------------------------------------------------------------");
+            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("5mb.txt"), false);
+            System.out.println("10------------------------------------------------------------------------------");
+            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("10mb.txt"), false);
+            System.out.println("50------------------------------------------------------------------------------");
+            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("50mb.txt"), false);
+            System.out.println("100------------------------------------------------------------------------------");
+            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("100mb.txt"), false);
             // testBCAes100Times("ECB", AesKeySize.AES_256, input);
-            testBCAes100Times("CBC", AesKeySize.AES_128, input);
-            // testBCAes100Times("CBC", AesKeySize.AES_192, input);
-            // testBCAes100Times("CBC", AesKeySize.AES_128, input);
+            //testBCAes100Times("CBC", AesKeySize.AES_128, input, false);
+            // testBCAes100Times("CBC", AesKeySize.AES_192, input, false);
+            // testBCAes100Times("CBC", AesKeySize.AES_128, input, false);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void testBCAes100Times(String mode, AesKeySize aesKeySize, String input) throws InvalidCipherTextException, GeneralSecurityException {
+    public static void testBCAes100Times(String mode, AesKeySize aesKeySize, String input, boolean concurrent) throws InvalidCipherTextException, GeneralSecurityException, ExecutionException, InterruptedException {
         for(int i = 0; i < 100; i++) {
-            testAesBouncyCastleTime(mode, aesKeySize, input);
+            testAesBouncyCastleTime(mode, aesKeySize, input, concurrent);
         }
     }
 
-    public static void testAesBouncyCastleTime(String mode, AesKeySize keySize, String input) throws GeneralSecurityException, InvalidCipherTextException {
-        if(Objects.equals(mode, "ECB")) {
+    public static void testAesBouncyCastleTime(String mode, AesKeySize keySize, String input, boolean concurrent) throws GeneralSecurityException, InvalidCipherTextException, ExecutionException, InterruptedException {
+        if(Objects.equals(mode, "ECB") && !concurrent) {
             BcAesECB sym = new BcAesECB(keySize);
 
             long start = System.nanoTime();
             sym.encrypt(input);
+            System.out.println((System.nanoTime() - start) / 1000000);
+        } else if (Objects.equals(mode, "ECB") && concurrent) {
+            long start = System.nanoTime();
+            BcAesECB.encryptConcurrently(input, keySize, 6);
             System.out.println((System.nanoTime() - start) / 1000000);
         }
         else {

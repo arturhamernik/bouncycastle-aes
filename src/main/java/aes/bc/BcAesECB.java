@@ -7,8 +7,11 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
+import java.util.concurrent.*;
 
 public class BcAesECB {
     private static final int IV_SIZE = 16;
@@ -46,8 +49,6 @@ public class BcAesECB {
         }
     }
 
-
-
     public String decrypt(String cipherText) {
         try {
             byte[] cipherBytes = Base64.getDecoder().decode(cipherText);
@@ -60,5 +61,37 @@ public class BcAesECB {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+
+    public static String encryptConcurrently(String data, AesKeySize keySize, int numChunks) throws InterruptedException, ExecutionException, GeneralSecurityException {
+        ExecutorService executor = Executors.newFixedThreadPool(numChunks);
+        List<Future<String>> futures = new ArrayList<>();
+        int chunkSize = data.length() / numChunks;
+
+        for (int i = 0; i < numChunks; i++) {
+            final int start = i * chunkSize;
+            int end = (i + 1) * chunkSize;
+            if (i == numChunks - 1) {
+                end = data.length();  // Make sure the last chunk includes the end of the data
+            }
+            final String dataChunk = data.substring(start, end);
+
+            Callable<String> task = () -> {
+                BcAesECB aes = new BcAesECB(keySize);
+                return aes.encrypt(dataChunk);
+            };
+            futures.add(executor.submit(task));
+        }
+
+        StringBuilder encryptedData = new StringBuilder();
+        for (Future<String> future : futures) {
+            encryptedData.append(future.get());  // This will block until the future is complete
+        }
+
+        executor.shutdown();
+        executor.awaitTermination(1, TimeUnit.MINUTES);
+
+        return encryptedData.toString();
     }
 }

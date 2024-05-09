@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d1fdfc1-0024-4b3b-b943-1dc3a8941bba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesCBC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesECB.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/enums/AesKeySize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/enums/AesMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/aes/tink/TinkAes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/plaintext.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/aes/AppTest.java" afterDir="false" />
+    <list default="true" id="2d1fdfc1-0024-4b3b-b943-1dc3a8941bba" name="Changes" comment="AES BouncyCastle and Tink">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aes/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aes/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesECB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesECB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,11 +96,26 @@
       <workItem from="1713986001911" duration="5026000" />
       <workItem from="1713992995614" duration="678000" />
       <workItem from="1714160506840" duration="2848000" />
-      <workItem from="1714220866755" duration="2376000" />
+      <workItem from="1714220866755" duration="2807000" />
+      <workItem from="1714249019090" duration="1397000" />
+      <workItem from="1715278288137" duration="2525000" />
     </task>
+    <task id="LOCAL-00001" summary="AES BouncyCastle and Tink">
+      <option name="closed" value="true" />
+      <created>1714224281102</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714224281102</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="AES BouncyCastle and Tink" />
+    <option name="LAST_COMMIT_MESSAGE" value="AES BouncyCastle and Tink" />
   </component>
 </project>

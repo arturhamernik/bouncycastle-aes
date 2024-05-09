@@ -2,6 +2,7 @@ package aes;
 
 import aes.bc.BcAesCBC;
 import aes.bc.BcAesECB;
+import aes.bc.BcAesGCM;
 import aes.enums.AesKeySize;
 import aes.tink.TinkAes;
 import org.bouncycastle.crypto.InvalidCipherTextException;
@@ -24,17 +25,18 @@ public class App
 
             //testBCAes100Times("ECB", AesKeySize.AES_128, input, false);
             System.out.println("5------------------------------------------------------------------------------");
-            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("5mb.txt"), false);
+            testBCAes100Times("GCM", AesKeySize.AES_128, readFromFile("5mb.txt"), true);
             System.out.println("10------------------------------------------------------------------------------");
-            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("10mb.txt"), false);
+            testBCAes100Times("GCM", AesKeySize.AES_128, readFromFile("10mb.txt"), true);
             System.out.println("50------------------------------------------------------------------------------");
-            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("50mb.txt"), false);
+            testBCAes100Times("GCM", AesKeySize.AES_128, readFromFile("50mb.txt"), true);
             System.out.println("100------------------------------------------------------------------------------");
-            testBCAes100Times("ECB", AesKeySize.AES_256, readFromFile("100mb.txt"), false);
+            testBCAes100Times("GCM", AesKeySize.AES_128, readFromFile("100mb.txt"), true);
             // testBCAes100Times("ECB", AesKeySize.AES_256, input);
             //testBCAes100Times("CBC", AesKeySize.AES_128, input, false);
             // testBCAes100Times("CBC", AesKeySize.AES_192, input, false);
             // testBCAes100Times("CBC", AesKeySize.AES_128, input, false);
+            //testAesGCMBouncyCastle(AesKeySize.AES_128, readFromFile("readable.txt"));
 
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -56,11 +58,17 @@ public class App
             System.out.println((System.nanoTime() - start) / 1000000);
         } else if (Objects.equals(mode, "ECB") && concurrent) {
             long start = System.nanoTime();
-            BcAesECB.encryptConcurrently(input, keySize, 6);
+            BcAesECB.encryptConcurrently(input, keySize, 18);
             System.out.println((System.nanoTime() - start) / 1000000);
-        }
-        else {
+        } else if(Objects.equals(mode, "CBC") ) {
             BcAesCBC sym = new BcAesCBC(keySize);
+            byte[] ivBytes = BcAesCBC.generateIVBytes();
+
+            long start = System.nanoTime();
+            sym.encrypt(input, ivBytes);
+            System.out.println((System.nanoTime() - start) / 1000000);
+        } else {
+            BcAesGCM sym = new BcAesGCM(keySize);
             byte[] ivBytes = BcAesCBC.generateIVBytes();
 
             long start = System.nanoTime();
@@ -105,6 +113,16 @@ public class App
         String encrypted = sym.encrypt(input, ivBytes);
         String decrypted = sym.decrypt(encrypted, ivBytes);
         System.out.println("BC-AES-CBC-" + keySize.size);
+        showResult(input, encrypted, decrypted);
+    }
+
+    public static void testAesGCMBouncyCastle(AesKeySize keySize, String input) throws GeneralSecurityException, InvalidCipherTextException {
+        BcAesGCM sym = new BcAesGCM(keySize);
+
+        byte[] ivBytes = BcAesCBC.generateIVBytes();
+        String encrypted = sym.encrypt(input, ivBytes);
+        String decrypted = sym.decrypt(encrypted, ivBytes);
+        System.out.println("BC-AES-GCM-" + keySize.size);
         showResult(input, encrypted, decrypted);
     }
 

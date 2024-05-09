@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2d1fdfc1-0024-4b3b-b943-1dc3a8941bba" name="Changes" comment="AES BouncyCastle and Tink">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2d1fdfc1-0024-4b3b-b943-1dc3a8941bba" name="Changes" comment="concurrent ECB">
+      <change afterPath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesGCM.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/aes/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aes/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesECB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/aes/bc/BcAesECB.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +59,7 @@
       <recent name="H:\Praca_dyplomowa\Impl\BouncyCastleTinkAes\src\main\java\aes" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="aes.bc" />
       <recent name="aes" />
     </key>
   </component>
@@ -98,7 +98,7 @@
       <workItem from="1714160506840" duration="2848000" />
       <workItem from="1714220866755" duration="2807000" />
       <workItem from="1714249019090" duration="1397000" />
-      <workItem from="1715278288137" duration="2525000" />
+      <workItem from="1715278288137" duration="5092000" />
     </task>
     <task id="LOCAL-00001" summary="AES BouncyCastle and Tink">
       <option name="closed" value="true" />
@@ -108,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714224281102</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="concurrent ECB">
+      <option name="closed" value="true" />
+      <created>1715286316008</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715286316008</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,6 +124,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="AES BouncyCastle and Tink" />
-    <option name="LAST_COMMIT_MESSAGE" value="AES BouncyCastle and Tink" />
+    <MESSAGE value="concurrent ECB" />
+    <option name="LAST_COMMIT_MESSAGE" value="concurrent ECB" />
   </component>
 </project>
